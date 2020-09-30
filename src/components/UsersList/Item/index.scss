@@ -1,0 +1,34 @@
+.Item {
+  background-color: #000;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+  width: 300px;
+  position: relative;
+  &__Avatar {
+    width: 100%;
+  }
+  &__Selected-Indicator {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+  }
+  &__Info {
+    padding: 15px;
+    .Top {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .Bottom {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      &__Text {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

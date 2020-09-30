@@ -1,24 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from "react-router-dom";
+import { Header, Tabs, Footer } from './components';
+import { Main, User, Selected } from './pages';
+import { useActionsRoutines } from './hooks';
+import { getUsersPromiseCreator } from './redux/users';
+
+const routerOptions = [
+  {
+    path: '/',
+    label: 'Main'
+  },
+  {
+    path: '/selected',
+    label: 'Selected users'
+  }
+];
 
 function App() {
+  const getUsers = useActionsRoutines(getUsersPromiseCreator);
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="Content" style={{ flex: 1 }}>
+        <Router>
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              <Tabs options={routerOptions} />
+              <Main />
+            </Route>
+            <Route exact path='/selected'>
+              <Tabs options={routerOptions} />
+              <Selected />
+            </Route>
+            <Route path="/user/:id">
+              <User />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+      <Footer />
     </div>
   );
 }
